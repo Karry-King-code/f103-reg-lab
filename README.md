@@ -12,7 +12,11 @@ STM32F103C8T6 精英板（嘉立创 v1.3）外设驱动学习项目，**直接�
 | 02-GPIO输出-LED 1s闪烁 | 手写 RCC/GPIO 寄存器点灯（逐位讲解） | ✅ 上板验收 |
 | 03-GPIO输入-按键控LED | CRL+ODR 两步上拉/IDR/ODR 异或翻转 | ✅ 上板验收 |
 | 04-USART-串口收发 | 手算 BRR=0x271/CR1 分两步使能/SWD 读寄存器验证 | ✅ 上板验收 |
-| （后续按任务清单推进） | | |
+| 05-任务五 温湿度 DHT11 | 单总线时序/DWT 微秒延时 | ✅ 上板验收 |
+| 06-任务六 光敏（烟雾替身） | 开漏必须上拉坑 | ✅ 上板验收 |
+| 07-任务七 OLED | 软件 I2C 位带 | ✅ 上板验收 |
+| 08-任务八 SPI Flash | W25Q16 实测+掉电不丢写测试 | ✅ 上板验收 |
+| 09-任务九 WiFi 上云 | ESP8266 AT+手工 MQTT+OneNET | ✅ 上板验收 |
 
 ## 工程一览
 
@@ -41,8 +45,10 @@ f103-reg-lab/
 | 二 | 串口收发 | `User/chapters/ch2_uart_echo.c` | ✅ 烧录验证 |
 | 三 | 按键控制 LED | `User/chapters/ch3_key_led.c` | ✅ 烧录验证 |
 | 四 | 蜂鸣器和继电器 | `User/chapters/ch4_buzzer_relay.c` | ✅ 烧录验证 |
-| 五+六 | 温湿度 + 光敏打印 | `User/chapters/ch5_6_dht11_light_寄存器.c` | ✅ 烧录验证 |
+| 五+六 | 温湿度 + 光敏打印 | `User/chapters/ch5_6_7_dht11_light_oled_reg.c` | ✅ 烧录验证 |
 | 七 | OLED 显示 | 见上表文件（含 OLED 代码）| ✅ 烧录验证 |
+| 八 | SPI Flash 读写+写入测试 | `User/chapters/ch8_spi_flash_reg.c` / `ch8_spi_flash_writetest_reg.c` | ✅ 烧录验证 |
+| 九 | WiFi上云 ESP8266→OneNET | `User/chapters/ch9_wifi_onenet_reg.c` | ✅ 烧录验证 |
 
 **接线定案**：DHT11=VCC/3V3 + DAT/B14 + GND｜光敏=VCC/3V3 + DO/B12 + GND｜OLED=VCC·GND·SCL/B8·SDA/B9
 **三腿差异**：光敏上拉输入 = `GPIO_Mode_IPU`（标准库）/ `Pull=GPIO_PULLUP`（HAL）/ `CRH=0x8 且 ODR=1`（寄存器）
